@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://localhost/book/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap-enc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" name="Server" targetNamespace="http://localhost/book/wsdl">
+  <types>
+    <xsd:schema targetNamespace="http://localhost/book/wsdl">
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+    </xsd:schema>
+  </types>
+  <portType name="ServerPort">
+    <operation name="getRandomNumber">
+      <input message="tns:getRandomNumberIn"/>
+    </operation>
+    <operation name="getRandomString">
+      <input message="tns:getRandomStringIn"/>
+    </operation>
+  </portType>
+  <binding name="ServerBinding" type="tns:ServerPort">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="getRandomNumber">
+      <soap:operation soapAction="http://localhost/book/wsdl#getRandomNumber"/>
+      <input>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://localhost/book/wsdl"/>
+      </input>
+      <output>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://localhost/book/wsdl"/>
+      </output>
+    </operation>
+    <operation name="getRandomString">
+      <soap:operation soapAction="http://localhost/book/wsdl#getRandomString"/>
+      <input>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://localhost/book/wsdl"/>
+      </input>
+      <output>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://localhost/book/wsdl"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="ServerService">
+    <port name="ServerPort" binding="tns:ServerBinding">
+      <soap:address location="http://localhost/book/wsdl"/>
+    </port>
+  </service>
+  <message name="getRandomNumberIn"/>
+  <message name="getRandomStringIn">
+    <part name="length" type="xsd:anyType"/>
+  </message>
+</definitions>
