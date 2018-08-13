@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://localhost/book_php_web_services/libsoap_Server" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap-enc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" name="Library" targetNamespace="http://localhost/book_php_web_services/libsoap_Server">
+  <types>
+    <xsd:schema targetNamespace="http://localhost/book_php_web_services/libsoap_Server">
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+    </xsd:schema>
+  </types>
+  <portType name="LibraryPort">
+    <operation name="sayHello">
+      <documentation>Say test.</documentation>
+      <input message="tns:sayHelloIn"/>
+      <output message="tns:sayHelloOut"/>
+    </operation>
+  </portType>
+  <binding name="LibraryBinding" type="tns:LibraryPort">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="sayHello">
+      <soap:operation soapAction="http://localhost/book_php_web_services/libsoap_Server#sayHello"/>
+      <input>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://localhost/book_php_web_services/libsoap_Server"/>
+      </input>
+      <output>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://localhost/book_php_web_services/libsoap_Server"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="LibraryService">
+    <port name="LibraryPort" binding="tns:LibraryBinding">
+      <soap:address location="http://localhost/book_php_web_services/libsoap_Server"/>
+    </port>
+  </service>
+  <message name="sayHelloIn"/>
+  <message name="sayHelloOut">
+    <part name="return" type="xsd:string"/>
+  </message>
+</definitions>
